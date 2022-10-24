@@ -150,7 +150,7 @@
             const tr = document.createElement("tr")
             kcb.firstElementChild.appendChild(tr)
             const td = document.createElement("td")
-            td.appendChild(document.createTextNode(xingqiji(星期)))
+            td.appendChild(document.createTextNode(xingqiji(i+1)))
             kcb.firstElementChild.children[i].appendChild(td)
             for (let j = 0; j < 课程表[i].length; j += 2) {
                 const td = document.createElement("td")
