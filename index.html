@@ -7,23 +7,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>25班课程表</title>
     <style>
-        #xzs,
+        body {
+            text-align: center;
+        }
+        #xzs {
+            display: inline;
+            color: #ff0000;
+            text-align: center;
+            font-size: 2em;
+        }
         #jxls {
-            color: #ff6666;
+            display: block;
+            color: #ff0000;
             text-align: center;
             font-size: 2em;
         }
 
         #ke {
+            display: inline;
             color: #66ccff;
             text-align: center;
-            font-size: 3em;
+            font-size: 2.5em;
         }
 
         #xiajieke {
-            color: #66ccff;
+            color: #66ccffff;
+            padding: 10px;
             text-align: center;
-            font-size: 3em;
+            font-size: 2.5em;
+        }
+
+        table {
+            text-align: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        table,
+        table td,
+        table th {
+            border: 0;
+            color: #000;
+            font-size: 200;
+            font-weight:600;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            height: 35px;
+        }
+
+        table thead th {
+            width: 100px;
+        }
+
+        th {
+            background-color: rgb(255, 255, 0);
         }
 
         td,
@@ -33,8 +73,9 @@
             line-height: 20px;
             box-sizing: border-box;
             padding: 0 0px;
-            border-bottom: 1px solid #E6EAEE;
-            border-right: 1px solid #E6EAEE;
+            border-bottom: 10px solid #E6EAEE;
+            border-right: 10px solid #E6EAEE;
+            border-width: 0.25em;
         }
     </style>
 </head>
@@ -45,8 +86,6 @@
     <div id="jxls">接下来是</div>
     <div id="xiajieke"></div>
     <div id="kcb">
-        <table border="0">
-        </table>
     </div>
     <script>
         const 星期一 = ["语文晨读", "下课时间", "语文", "下课时间", "数学", "下课时间", "英语", "下课时间", "艺术", "下课时间", "生物", "下课时间", "化学", "下课时间", "物理", "下课时间", "自习", "放学中"]
@@ -57,7 +96,6 @@
         const 星期六 = ["英语晨读", "下课时间", "语文", "下课时间", "语文", "下课时间", "英语", "下课时间", "英语", "下课时间", "数学", "下课时间", "数学", "下课时间", "数学", "下课时间", "自习", "放学中"]
         const 星期天 = ["语文晨读", "下课时间", "化学", "下课时间", "化学", "下课时间", "生物", "下课时间", "生物", "下课时间", "物理", "下课时间", "物理", "下课时间", "物理", "下课时间", "自习", "放学中"]
         const 课程表 = [星期一, 星期二, 星期三, 星期四, 星期五, 星期六, 星期天]
-        console.log(星期一.length);
         const 时间 = new Date()
         const 星期 = 时间.getDay()
         const 第几节课 = dijijieke(时间.getHours(), 时间.getMinutes())
@@ -132,7 +170,6 @@
         const ke = document.getElementById("ke")
         const xiajieke = document.getElementById("xiajieke")
         const kcb = document.getElementById("kcb")
-        console.log(课程表[星期][第几节课]);
         setInterval(() => {
             ke.innerText = 课程表[星期][第几节课]
             if (第几节课 == 17) {
@@ -143,22 +180,71 @@
                     xiajieke.innerText = 课程表[星期][第几节课 + 2]
                 } else xiajieke.innerText = 课程表[星期][第几节课 + 1]
             }
-
         }, 1000);
-
-        for (let i = 0; i < 课程表.length; i++) {
+        // for (let i = 0; i < 课程表.length; i++) {
+        //     const tr = document.createElement("tr")
+        //     kcb.firstElementChild.appendChild(tr)
+        //     const td = document.createElement("td")
+        //     td.appendChild(document.createTextNode(xingqiji(i + 1)))
+        //     if (i + 1 == 星期) {
+        //         td.style.color = "red"
+        //         tr.style.background = "#66ccff"
+        //     }
+        //     kcb.firstElementChild.children[i].appendChild(td)
+        //     for (let j = 0; j < 课程表[i].length; j += 2) {
+        //         const td = document.createElement("td")
+        //         td.appendChild(document.createTextNode(课程表[i][j]))
+        //         if (i + 1 == 星期 && j == 第几节课) {
+        //             td.style.background = "red"
+        //             td.style.color = "#66ccff"
+        //         }
+        //         kcb.firstElementChild.children[i].appendChild(td)
+        //     }
+        // }
+        diyici = false
+        setInterval(() => {
+            const table = document.createElement("table")
             const tr = document.createElement("tr")
-            kcb.firstElementChild.appendChild(tr)
-            const td = document.createElement("td")
-            td.appendChild(document.createTextNode(xingqiji(i+1)))
-            kcb.firstElementChild.children[i].appendChild(td)
-            for (let j = 0; j < 课程表[i].length; j += 2) {
+            tr.innerHTML = "<th>星期<th>晨读<th>第一节<th>第二节<th>第三节<th>第四节<th>第五节<th>第六节<th>第七节<th>第八节"
+            table.appendChild(tr)
+            for (let i = 0; i < 课程表.length; i++) {
+                const tr = document.createElement("tr")
                 const td = document.createElement("td")
-                td.appendChild(document.createTextNode(课程表[i][j]))
-                kcb.firstElementChild.children[i].appendChild(td)
+                td.style.backgroundColor = "#ddffff"
+                td.appendChild(document.createTextNode(xingqiji(i + 1)))
+                if (i + 1 == 星期) {
+                    td.style.color = "red"
+                    td.style.fontSize = "1.25em"
+                    td.style.backgroundColor = "#ccddff"
+                    tr.style.background = "#66ccff99"
+                }
+                tr.appendChild(td)
+                for (let j = 0; j < 课程表[i].length; j += 2) {
+                    const td = document.createElement("td")
+                    td.appendChild(document.createTextNode(课程表[i][j]))
+                    if ((i + 1 == 星期 && j == 第几节课)) {
+                        td.style.background = "red"
+                        td.style.color = "yellow"
+                    }
+                    if ((i + 1 == 星期 && j == 第几节课+1)) {
+                        td.style.background = "#ffff55"
+                        td.style.color = "blue"
+                    }
+                    if ((i + 1 == 星期 && j == 第几节课-1)) {
+                        td.style.background = "#99999999"
+                        td.style.color = "white"
+                    }
+                    tr.appendChild(td)
+                }
+                table.appendChild(tr)
             }
+            if (diyici) {
+                kcb.removeChild(kcb.firstElementChild)
+            }
+            kcb.appendChild(table)
+            diyici = true
+        }, 1000)
 
-        }
     </script>
 </body>
 
