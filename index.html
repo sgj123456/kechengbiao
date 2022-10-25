@@ -181,6 +181,15 @@
         const xiajieke = document.getElementById("xiajieke")
         const kcb = document.getElementById("kcb")
         const tdk = document.getElementsByTagName("td")
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i].trim();
+                if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+            }
+            return "";
+        }
         setInterval(() => {
             ke.innerText = 课程表[星期 - 1][第几节课]
             if (第几节课 == 17) {
@@ -193,7 +202,20 @@
             }
         }, 1000);
         diyici = false
-        tdzhuangtai = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+        tdzhuangtai = new Array()
+        tempshuzu = new Array()
+        if (document.cookie == "") {
+            tdzhuangtai = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+        } else {
+            temp = getCookie("tdzhuangtai").split(",")
+            for (let l = 0; l < 7; l++) {
+                for (let m = 0; m < 18; m++) {
+                    tempshuzu.push(temp[l * 18 + m])
+                }
+                tdzhuangtai.push(tempshuzu)
+                tempshuzu = []
+            }
+        }
         setInterval(() => {
             const table = document.createElement("table")
             const tr = document.createElement("tr")
@@ -253,6 +275,7 @@
             }
             kcb.appendChild(table)
             diyici = true
+            document.cookie = "tdzhuangtai=" + tdzhuangtai + "; expires=Thu, 18 Dec 2100 12:00:00 GMT";
         }, 1000)
     </script>
 </body>
