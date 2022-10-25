@@ -104,9 +104,11 @@
         const 星期六 = ["英语晨读", "下课时间", "语文", "下课时间", "语文", "下课时间", "英语", "下课时间", "英语", "下课时间", "数学", "下课时间", "数学", "下课时间", "数学", "下课时间", "自习", "放学中"]
         const 星期天 = ["语文晨读", "下课时间", "化学", "下课时间", "化学", "下课时间", "生物", "下课时间", "生物", "下课时间", "物理", "下课时间", "物理", "下课时间", "物理", "下课时间", "自习", "放学中"]
         const 课程表 = [星期一, 星期二, 星期三, 星期四, 星期五, 星期六, 星期天]
-        const 时间 = new Date()
-        const 星期 = 时间.getDay()
-        const 第几节课 = dijijieke(时间.getHours(), 时间.getMinutes())
+        setInterval(() => {
+            时间 = new Date()
+            星期 = 时间.getDay()
+            第几节课 = dijijieke(时间.getHours(), 时间.getMinutes())
+        }, 1000)
         function xingqiji(星期) {
             switch (星期) {
                 case 1:
@@ -141,21 +143,21 @@
                 return 1
             } else if (小时 == 8 && 分钟 <= 45) {
                 return 2
-            } else if (小时 == 8 && 55 >= 分钟 >= 45) {
+            } else if (小时 == 8 && 55 >= 分钟 && 分钟 >= 45) {
                 return 3
             } else if ((小时 == 8 && 分钟 >= 55) || (小时 == 9 && 分钟 <= 40)) {
                 return 4
             } else if ((小时 == 9 && 分钟 >= 40) || (小时 == 10 && 分钟 <= 10)) {
                 return 5
-            } else if (小时 == 10 && 10 <= 分钟 <= 55) {
+            } else if (小时 == 10 && 10 <= 分钟 && 分钟 <= 55) {
                 return 6
             } else if ((小时 == 10 && 分钟 >= 55) || (小时 == 11 && 分钟 <= 5)) {
                 return 7
-            } else if (小时 == 11 && 45 >= 分钟 >= 5) {
+            } else if (小时 == 11 && 45 >= 分钟 && 分钟 >= 5) {
                 return 8
-            } else if (小时 == 11 && 55 >= 分钟 >= 45) {
+            } else if (小时 == 11 && 55 >= 分钟 && 分钟 >= 45) {
                 return 9
-            } else if (小时 == 14 && 5 <= 分钟 <= 50) {
+            } else if (小时 == 14 && 5 <= 分钟 && 分钟 <= 50) {
                 return 10
             } else if (小时 == 14 && 分钟 >= 50) {
                 return 11
@@ -189,26 +191,6 @@
                 } else xiajieke.innerText = 课程表[星期 - 1][第几节课 + 1]
             }
         }, 1000);
-        // for (let i = 0; i < 课程表.length; i++) {
-        //     const tr = document.createElement("tr")
-        //     kcb.firstElementChild.appendChild(tr)
-        //     const td = document.createElement("td")
-        //     td.appendChild(document.createTextNode(xingqiji(i + 1)))
-        //     if (i + 1 == 星期) {
-        //         td.style.color = "red"
-        //         tr.style.background = "#66ccff"
-        //     }
-        //     kcb.firstElementChild.children[i].appendChild(td)
-        //     for (let j = 0; j < 课程表[i].length; j += 2) {
-        //         const td = document.createElement("td")
-        //         td.appendChild(document.createTextNode(课程表[i][j]))
-        //         if (i + 1 == 星期 && j == 第几节课) {
-        //             td.style.background = "red"
-        //             td.style.color = "#66ccff"
-        //         }
-        //         kcb.firstElementChild.children[i].appendChild(td)
-        //     }
-        // }
         diyici = false
         setInterval(() => {
             const table = document.createElement("table")
@@ -224,23 +206,34 @@
                     td.style.color = "red"
                     td.style.fontSize = "1.25em"
                     td.style.backgroundColor = "#ccddff"
-                    tr.style.background = "#66ccff99"
                 }
                 tr.appendChild(td)
                 for (let j = 0; j < 课程表[i].length; j += 2) {
                     const td = document.createElement("td")
                     td.appendChild(document.createTextNode(课程表[i][j]))
-                    if ((i + 1 == 星期 && j == 第几节课)) {
-                        td.style.background = "red"
-                        td.style.color = "yellow"
-                    }
-                    if ((i + 1 == 星期 && j == 第几节课 + 2)) {
-                        td.style.background = "#ffff22"
-                        td.style.color = "blue"
-                    }
-                    if ((i + 1 == 星期 && j == 第几节课 - 2)) {
-                        td.style.background = "#99999922"
-                        td.style.color = "white"
+                    if (i + 1 == 星期 && j % 2 != 0) {
+                        if (j == 第几节课) {
+                            td.style.background = "red"
+                            td.style.color = "yellow"
+                        } else if (j == 第几节课 + 2) {
+                            td.style.background = "#ffff22"
+                            td.style.color = "blue"
+                        } else if (j == 第几节课 - 2) {
+                            td.style.background = "#99999922"
+                            td.style.color = "white"
+                        } else {
+                            td.style.backgroundColor = "#66ccff66"
+                        }
+                    } else if (i + 1 == 星期 && j % 2 == 0) {
+                        if (j == 第几节课 + 1) {
+                            td.style.background = "#ffff22"
+                            td.style.color = "blue"
+                        } else if (j == 第几节课 - 1) {
+                            td.style.background = "#99999922"
+                            td.style.color = "white"
+                        } else {
+                            td.style.backgroundColor = "#66ccfff66"
+                        }
                     }
                     tr.appendChild(td)
                 }
@@ -252,7 +245,6 @@
             kcb.appendChild(table)
             diyici = true
         }, 1000)
-
     </script>
 </body>
 
