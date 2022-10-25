@@ -10,12 +10,14 @@
         body {
             text-align: center;
         }
+
         #xzs {
             display: inline;
             color: #ff0000;
             text-align: center;
             font-size: 2em;
         }
+
         #jxls {
             display: block;
             color: #ff0000;
@@ -53,7 +55,7 @@
             border: 0;
             color: #000;
             font-size: 600;
-            font-weight:600;
+            font-weight: 600;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             height: 35px;
         }
@@ -81,7 +83,7 @@
         #by {
             font-size: medium;
             color: #66ccff;
-            font-weight:bold;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -177,14 +179,14 @@
         const xiajieke = document.getElementById("xiajieke")
         const kcb = document.getElementById("kcb")
         setInterval(() => {
-            ke.innerText = 课程表[星期][第几节课]
+            ke.innerText = 课程表[星期 - 1][第几节课]
             if (第几节课 == 17) {
                 xiajieke.innerText = "美好的一天要结束了"
                 jxls.innerText = "没有课程了"
             } else {
                 if (第几节课 % 2 == 0) {
-                    xiajieke.innerText = 课程表[星期][第几节课 + 2]
-                } else xiajieke.innerText = 课程表[星期][第几节课 + 1]
+                    xiajieke.innerText = 课程表[星期 - 1][第几节课 + 2]
+                } else xiajieke.innerText = 课程表[星期 - 1][第几节课 + 1]
             }
         }, 1000);
         // for (let i = 0; i < 课程表.length; i++) {
@@ -232,11 +234,11 @@
                         td.style.background = "red"
                         td.style.color = "yellow"
                     }
-                    if ((i + 1 == 星期 && j == 第几节课+1)) {
+                    if ((i + 1 == 星期 && j == 第几节课 + 1)) {
                         td.style.background = "#ffff55"
                         td.style.color = "blue"
                     }
-                    if ((i + 1 == 星期 && j == 第几节课-1)) {
+                    if ((i + 1 == 星期 && j == 第几节课 - 1)) {
                         td.style.background = "#99999999"
                         td.style.color = "white"
                     }
