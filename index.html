@@ -155,7 +155,7 @@
                 return 7
             } else if (小时 == 11 && 45 >= 分钟 && 分钟 >= 5) {
                 return 8
-            } else if (小时 == 11 && 55 >= 分钟 && 分钟 >= 45) {
+            } else if ((小时 == 11 && 55 >= 分钟 && 分钟 >= 45) || (小时 == 12) || (小时 == 13) || (小时 == 14 && 分钟 <= 5)) {
                 return 9
             } else if (小时 == 14 && 5 <= 分钟 && 分钟 <= 50) {
                 return 10
@@ -180,6 +180,7 @@
         const ke = document.getElementById("ke")
         const xiajieke = document.getElementById("xiajieke")
         const kcb = document.getElementById("kcb")
+        const tdk = document.getElementsByTagName("td")
         setInterval(() => {
             ke.innerText = 课程表[星期 - 1][第几节课]
             if (第几节课 == 17) {
@@ -192,6 +193,7 @@
             }
         }, 1000);
         diyici = false
+        tdzhuangtai = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
         setInterval(() => {
             const table = document.createElement("table")
             const tr = document.createElement("tr")
@@ -210,6 +212,8 @@
                 tr.appendChild(td)
                 for (let j = 0; j < 课程表[i].length; j += 2) {
                     const td = document.createElement("td")
+                    td.dataset.i = i
+                    td.dataset.j = j
                     td.appendChild(document.createTextNode(课程表[i][j]))
                     if (i + 1 == 星期) {
                         if (j == 第几节课) {
@@ -228,7 +232,19 @@
                     } else {
                         tr.appendChild(td)
                     }
-
+                    const tdcolor = td.style.backgroundColor
+                    td.onclick = () => {
+                        if (tdzhuangtai[Number(td.dataset.i)][Number(td.dataset.j)] == 0) {
+                            td.style.backgroundColor = "red"
+                            tdzhuangtai[Number(td.dataset.i)][Number(td.dataset.j)] = 1
+                        } else {
+                            td.style.backgroundColor = tdcolor
+                            tdzhuangtai[Number(td.dataset.i)][Number(td.dataset.j)] = 0
+                        }
+                    }
+                    if (tdzhuangtai[i][j] == 1) {
+                        td.style.backgroundColor = "red"
+                    }
                 }
                 table.appendChild(tr)
             }
