@@ -65,7 +65,7 @@
         }
 
         th {
-            background-color: rgb(255, 255, 0);
+            background-color: rgb(255, 255, 150);
         }
 
         td,
@@ -200,42 +200,35 @@
             for (let i = 0; i < 课程表.length; i++) {
                 const tr = document.createElement("tr")
                 const td = document.createElement("td")
-                td.style.backgroundColor = "#ddffff"
+                td.style.backgroundColor = "#11ffff"
                 td.appendChild(document.createTextNode(xingqiji(i + 1)))
                 if (i + 1 == 星期) {
                     td.style.color = "red"
                     td.style.fontSize = "1.25em"
-                    td.style.backgroundColor = "#ccddff"
+                    td.style.backgroundColor = "#ddffdd"
                 }
                 tr.appendChild(td)
                 for (let j = 0; j < 课程表[i].length; j += 2) {
                     const td = document.createElement("td")
                     td.appendChild(document.createTextNode(课程表[i][j]))
-                    if (i + 1 == 星期 && j % 2 != 0) {
+                    if (i + 1 == 星期) {
                         if (j == 第几节课) {
                             td.style.background = "red"
                             td.style.color = "yellow"
-                        } else if (j == 第几节课 + 2) {
+                        } else if (j == 第几节课 + 2 || j == 第几节课 + 1) {
                             td.style.background = "#ffff22"
                             td.style.color = "blue"
-                        } else if (j == 第几节课 - 2) {
+                        } else if (j == 第几节课 - 2 || j == 第几节课 - 1) {
                             td.style.background = "#99999922"
                             td.style.color = "white"
                         } else {
                             td.style.backgroundColor = "#66ccff66"
                         }
-                    } else if (i + 1 == 星期 && j % 2 == 0) {
-                        if (j == 第几节课 + 1) {
-                            td.style.background = "#ffff22"
-                            td.style.color = "blue"
-                        } else if (j == 第几节课 - 1) {
-                            td.style.background = "#99999922"
-                            td.style.color = "white"
-                        } else {
-                            td.style.backgroundColor = "#66ccfff66"
-                        }
+                        tr.appendChild(td)
+                    } else {
+                        tr.appendChild(td)
                     }
-                    tr.appendChild(td)
+
                 }
                 table.appendChild(tr)
             }
